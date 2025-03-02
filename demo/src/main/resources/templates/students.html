@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>学生管理 - 学生管理系统</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
+</head>
+<body>
+<div class="navbar">
+  <a th:href="@{/home}">主页</a>
+  <a th:href="@{/students}">学生管理</a>
+  <a th:href="@{/courses}">课程管理</a>
+  <a th:href="@{/assignments}">作业管理</a>
+  <a th:href="@{/grades}">成绩管理</a>
+  <a th:href="@{/logout}">退出登录</a>
+</div>
+<div class="container">
+  <h2>学生列表</h2>
+  <a th:href="@{/students/new}" class="btn btn-add">添加新学生</a>
+  <table>
+    <thead>
+    <tr>
+      <th>学号</th>
+      <th>姓名</th>
+      <th>邮箱</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student : ${students}">
+      <td th:text="${student.id}"></td>
+      <td th:text="${student.name}"></td>
+      <td th:text="${student.email}"></td>
+      <td>
+        <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-edit">编辑</a>
+        <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-delete">删除</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
