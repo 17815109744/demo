@@ -1,0 +1,172 @@
+/* src/main/resources/static/css/login.css */
+body {
+    background: #000000;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    font-family: SimHei, sans-serif;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    perspective: 500px; /* 增强3D感 */
+}
+
+/* 太空背景容器 */
+.space-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #05050f 0%, #000000 80%); /* 更深邃的背景 */
+    z-index: -2; /* 降低层级，避免被覆盖 */
+    overflow: hidden;
+}
+
+/* 第一层：远处的星星（小而慢） */
+.space-bg::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #ffffff 0.2px, transparent 0.2px);
+    background-size: 15px 15px; /* 更密集的星星 */
+    opacity: 0.1;
+    animation: driftFar 150s linear infinite;
+    transform: translateZ(-1000px); /* 更远的深度 */
+}
+
+/* 第二层：中距离星星（中等大小，稍快） */
+.space-bg::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #b0b0b0 0.6px, transparent 0.6px);
+    background-size: 30px 30px;
+    opacity: 0.25;
+    animation: driftMedium 100s linear infinite;
+    transform: translateZ(-500px); /* 中等深度 */
+}
+
+/* 第三层：近处星星（大而快） */
+.space-bg > * { /* 确保子元素显示 */
+    position: absolute;
+    z-index: -1; /* 防止被登录卡片覆盖 */
+}
+
+.space-bg {
+    background: radial-gradient(circle, #ffffff 1.2px, transparent 1.2px);
+    background-size: 50px 50px;
+    opacity: 0.4;
+    animation: driftClose 50s linear infinite;
+}
+
+/* 星云光晕 */
+.nebula {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.05), transparent);
+    filter: blur(100px);
+    opacity: 0.2;
+    transform: translateZ(0); /* 确保可见 */
+}
+
+.nebula-1 {
+    top: 10%;
+    left: 20%;
+    transform: translateZ(-800px); /* 星云更远 */
+}
+
+.nebula-2 {
+    top: 60%;
+    left: 70%;
+    background: radial-gradient(circle, rgba(255, 182, 193, 0.05), transparent);
+    transform: translateZ(-900px); /* 星云更远 */
+}
+
+/* 流星效果 */
+.meteor {
+    width: 2px;
+    height: 2px;
+    background: #ffffff;
+    box-shadow: 0 0 25px #ffffff;
+    animation: meteorShower 3s linear infinite;
+    transform-origin: center;
+}
+
+/* 微小星系旋转 */
+.galaxy {
+    width: 150px;
+    height: 150px;
+    top: 50%;
+    left: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+    border-radius: 50%;
+    animation: spinGalaxy 60s linear infinite;
+    transform: translateZ(-300px); /* 星系在中距离 */
+    filter: blur(20px);
+}
+
+/* 动画：远处的星星漂移 */
+@keyframes driftFar {
+    0% { background-position: 0 0; }
+    100% { background-position: 15px 15px; }
+}
+
+/* 动画：中距离星星漂移 */
+@keyframes driftMedium {
+    0% { background-position: 0 0; }
+    100% { background-position: -30px -30px; }
+}
+
+/* 动画：近处星星漂移 */
+@keyframes driftClose {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+
+/* 动画：流星划过（从远处到近处） */
+@keyframes meteorShower {
+    0% {
+        transform: translateX(0) translateY(0) translateZ(-1000px);
+        opacity: 0.1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100vw) translateY(100vh) translateZ(0);
+        opacity: 0;
+    }
+}
+
+/* 动画：星系旋转 */
+@keyframes spinGalaxy {
+    0% { transform: translateZ(-300px) rotate(0deg); }
+    100% { transform: translateZ(-300px) rotate(360deg); }
+}
+
+/* 登录卡片样式 */
+.login-card {
+    background: #000000;
+    padding: 20px;
+    transition: box-shadow 0.8s ease-in-out;
+    position: relative;
+    z-index: 1;
+}
+
+.login-card:hover {
+    box-shadow:
+        0 0 5px 2px rgba(255, 255, 255, 0.7),
+        0 0 20px 6px rgba(138, 43, 226, 0.6),
+        0 0 40px 12px rgba(26, 115, 232, 0.5),
+        0 0 60px 20px rgba(138, 43, 226, 0.3);
+}
+
+h3 { font-size: 1.8rem; color: #ffffff; text-align: center; margin-bottom: 20px; }
+label { font-weight: bold; color: #ffffff; }
+.form-control { background: #000000; border: 1px solid #ffffff; color: #ffffff; border-radius: 0; }
+.form-control:focus { background: #000000; color: #ffffff; border: 1px solid #1a73e8; box-shadow: none; }
+.btn-login { background: #1a73e8; border: none; font-weight: bold; border-radius: 0; }
+.btn-login:hover { background: #1557b0; }
